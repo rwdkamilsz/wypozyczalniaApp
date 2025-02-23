@@ -9,6 +9,6 @@ namespace wypozyczalniaApp
     public class Reader : Person
     {
         public string? Phone { get; set; }
-        public bool BooksBorrowed { get; set; }
+        public int BooksBorrowed { get; set; }
     }
 }
