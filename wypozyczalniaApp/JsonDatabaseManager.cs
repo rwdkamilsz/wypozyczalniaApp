@@ -27,22 +27,16 @@ namespace wypozyczalniaApp
             if (!File.Exists(filePath))
             {
                 return new List<T>();
-            }
-            var options = new JsonSerializerOptions
-            {
-                IncludeFields = false
-            };
+            } 
             try
             {
                 string json = File.ReadAllText(filePath);
-                Debug.WriteLine($"Z try: {filePath}");
 
                 return JsonSerializer.Deserialize<List<T>>(json, _options) ?? new List<T>();
 
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Z catch \n {ex.Message}");
                 Console.WriteLine($"Błąd odczytu JSON: {ex.Message}");
                 return new List<T>();
             }
