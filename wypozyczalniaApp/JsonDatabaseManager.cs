@@ -15,11 +15,12 @@ namespace wypozyczalniaApp
 
         private List<Book> _books;
         private List<Reader> _readers;
-
+        private List<Borrowing> _borrowings;
         public JsonDatabase()
         {
             _books = LoadFromFile<Book>("books.json");
             _readers = LoadFromFile<Reader>("readers.json");
+            _borrowings = LoadFromFile<Borrowing>("borrowings.json");
         }
 
         private List<T> LoadFromFile<T>(string filePath)
@@ -58,21 +59,31 @@ namespace wypozyczalniaApp
         public void AddBook(Book book)
         {
             _books.Add(book);
-            SaveToFile(_books, "books.json");
+            SaveBooks();
         }
         public void AddReader(Reader reader)
         {
             _readers.Add(reader);
-            SaveToFile(_readers, "readers.json");
+            SaveReaders();
 
         }
-
-        public void AddItem<T>(T item, List<T> items, string filePath)
+        public void AddBorrowing(Borrowing borrowing)
         {
-            items.Add(item);
-            SaveToFile(items, filePath);
+            _borrowings.Add(borrowing);
+            SaveBorrowings();
         }
-
+        public void SaveBooks()
+        {
+            SaveToFile(_books, "books.json");
+        }
+        public void SaveReaders()
+        {
+            SaveToFile(_readers, "readers.json");
+        }
+        public void SaveBorrowings()
+        {
+            SaveToFile(_readers, "borrowings.json");
+        }
         public bool RemoveBookByISBN(string isbn)
         {
             Book? bookToRemove = FindBookByISBN(isbn);
@@ -116,7 +127,10 @@ namespace wypozyczalniaApp
         {
             return _readers;
         }
-
+        public List<Borrowing> GetAllBorrowings()
+        {
+            return _borrowings;
+        }
         public Reader? FindReader(long? libraryID, long? pesel)
         {
             foreach (var reader in _readers)
@@ -129,6 +143,33 @@ namespace wypozyczalniaApp
 
             return null;
         }
+        public List<Borrowing> GetBorrowingsByReaderID(long libraryID)
+        {
+            return _borrowings.Where(b => b.ReaderID == libraryID && !b.ReturnDate.HasValue).ToList();
+        }
 
+        public bool ReturnBook(string isbn, long readerID)
+        {
+            var borrowing = _borrowings.FirstOrDefault(b =>
+                b.ISBN == isbn &&
+                b.ReaderID == readerID &&
+                !b.ReturnDate.HasValue);
+
+            if (borrowing != null)
+            {
+                borrowing.ReturnDate = DateTime.Now;
+                borrowing.Returned = true;
+                SaveBorrowings();
+
+                var book = FindBookByISBN(isbn);
+                if (book != null)
+                {
+                    book.IsAvailable = true;
+                    SaveBooks();
+                }
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace wypozyczalniaApp.Models
 
         public override string ToString()
         {
-            return $"ID: {Id}, Imię: {FirstName}, Nazwisko: {LastName}, PESEL: {Pesel}";
+            return $"Imię: {FirstName}, Nazwisko: {LastName}, PESEL: {Pesel}";
         }
 
     }
