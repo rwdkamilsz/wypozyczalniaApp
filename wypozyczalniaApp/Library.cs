@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace wypozyczalniaApp
+﻿namespace wypozyczalniaApp
 {
     public class Library
     {

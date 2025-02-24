@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace wypozyczalniaApp
 {
@@ -57,7 +54,7 @@ namespace wypozyczalniaApp
 
         public bool RemoveBookByISBN(string isbn)
         {
-            Book bookToRemove = FindBookByISBN(isbn);
+            Book? bookToRemove = FindBookByISBN(isbn);
             if (bookToRemove != null)
             {
                 _books.Remove(bookToRemove);
@@ -68,7 +65,7 @@ namespace wypozyczalniaApp
         }
 
 
-        public Book FindBookByISBN(string isbn)
+        public Book? FindBookByISBN(string isbn)
         {
             foreach (var book in _books)
             {

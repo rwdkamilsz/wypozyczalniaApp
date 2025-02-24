@@ -1,7 +1,4 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using wypozyczalniaApp;
-using static System.Reflection.Metadata.BlobBuilder;
+﻿using wypozyczalniaApp;
 
 public class Wypozyczalnia {
 
@@ -45,15 +42,21 @@ public class Wypozyczalnia {
                     library.AddBook(title, author, isbn, releaseDate, description, genre);
                     Console.ReadKey();
                     break;
-
+ 
                 case "2":
                     Console.Write("Podaj ISBN książki do usunięcia: ");
-                    string isbnToRemove = Console.ReadLine();
-                    library.RemoveBook(isbnToRemove);
+                    string? isbnToRemove = Console.ReadLine();
+                    if (!string.IsNullOrEmpty(isbnToRemove))
+                    {
+                        library.RemoveBook(isbnToRemove);
+                    }
+                    else
+                    {
+                        Console.WriteLine("ISBN nie może być pusty!");
+                    }
                     Console.ReadKey();
                     break;
-
-
+                    
                 case "3":
                     library.DisplayBooks();
                     Console.ReadKey();
