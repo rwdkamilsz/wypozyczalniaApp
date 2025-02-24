@@ -1,43 +1,59 @@
-﻿using System.Text.Json;
+﻿using System.Diagnostics;
+using System.Text.Json;
+using wypozyczalniaApp.Models;
 
 namespace wypozyczalniaApp
 {
+
     public class JsonDatabase
     {
-        private readonly string _filePath;
-        private List<Book> _books;
-
-        public JsonDatabase(string filePath)
+        private readonly JsonSerializerOptions _options = new JsonSerializerOptions
         {
-            _filePath = filePath;
-            _books = LoadFromFile();
+            WriteIndented = true,
+            IncludeFields = true  // Changed to true
+        };
+
+        private List<Book> _books;
+        private List<Reader> _readers;
+
+        public JsonDatabase()
+        {
+            _books = LoadFromFile<Book>("books.json");
+            _readers = LoadFromFile<Reader>("readers.json");
         }
 
-        private List<Book> LoadFromFile()
+        private List<T> LoadFromFile<T>(string filePath)
         {
-            if (!File.Exists(_filePath))
+            if (!File.Exists(filePath))
             {
-                return new List<Book>();
+                return new List<T>();
             }
-
+            var options = new JsonSerializerOptions
+            {
+                IncludeFields = false
+            };
             try
             {
-                string json = File.ReadAllText(_filePath);
-                return JsonSerializer.Deserialize<List<Book>>(json) ?? new List<Book>();
+                string json = File.ReadAllText(filePath);
+                Debug.WriteLine($"Z try: {filePath}");
+
+                return JsonSerializer.Deserialize<List<T>>(json, _options) ?? new List<T>();
+
             }
             catch (Exception ex)
             {
+                Debug.WriteLine($"Z catch \n {ex.Message}");
                 Console.WriteLine($"Błąd odczytu JSON: {ex.Message}");
-                return new List<Book>();
+                return new List<T>();
             }
         }
 
-        private void SaveToFile()
+        private void SaveToFile<T>(List<T> items, string? filePath)
         {
             try
             {
-                string json = JsonSerializer.Serialize(_books, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(_filePath, json);
+                string json = JsonSerializer.Serialize(items, _options);
+                File.WriteAllText(filePath, json);
             }
             catch (Exception ex)
             {
@@ -48,9 +64,20 @@ namespace wypozyczalniaApp
         public void AddBook(Book book)
         {
             _books.Add(book);
-            SaveToFile();
+            SaveToFile(_books, "books.json");
+        }
+        public void AddReader(Reader reader)
+        {
+            _readers.Add(reader);
+            SaveToFile(_readers, "readers.json");
+
         }
 
+        public void AddItem<T>(T item, List<T> items, string filePath)
+        {
+            items.Add(item);
+            SaveToFile(items, filePath);
+        }
 
         public bool RemoveBookByISBN(string isbn)
         {
@@ -58,13 +85,23 @@ namespace wypozyczalniaApp
             if (bookToRemove != null)
             {
                 _books.Remove(bookToRemove);
-                SaveToFile();
+                SaveToFile(_books, "books.json");
                 return true;
             }
             return false;
         }
 
-
+        public bool RemoveReaderByLibraryID(long libraryID)
+        {
+            Reader? readerToRemove = FindReader(libraryID, null);
+            if (readerToRemove != null)
+            {
+                _readers.Remove(readerToRemove);
+                SaveToFile(_readers, "readers.json");
+                return true;
+            }
+            return false;
+        }
         public Book? FindBookByISBN(string isbn)
         {
             foreach (var book in _books)
@@ -81,5 +118,23 @@ namespace wypozyczalniaApp
         {
             return _books;
         }
+        public List<Reader> GetAllReaders()
+        {
+            return _readers;
+        }
+
+        public Reader? FindReader(long? libraryID, long? pesel)
+        {
+            foreach (var reader in _readers)
+            {
+                if (reader.LibraryID == libraryID || reader.Pesel == pesel)
+                {
+                    return reader;
+                } 
+            }
+
+            return null;
+        }
+
     }
 }

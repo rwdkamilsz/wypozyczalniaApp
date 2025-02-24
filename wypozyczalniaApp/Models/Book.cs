@@ -1,4 +1,4 @@
-﻿namespace wypozyczalniaApp
+﻿namespace wypozyczalniaApp.Models
 {
     public class Book : Item
     {
