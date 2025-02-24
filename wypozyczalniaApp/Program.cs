@@ -12,8 +12,6 @@ public class Wypozyczalnia {
 
         //Dodanie przykładowych książek 
         library.AddBook("Władca Pierścieni", "J.R.R. Tolkien", "9788377582558", new DateTime(2012, 1, 1), "", "Fantastyka");
-
-
         library.AddBook("Diune","Frank Herbert","9788383381602", new DateTime(2024, 1, 1),"","Science Fiction");
 
 
@@ -54,6 +52,7 @@ public class Wypozyczalnia {
                     library.RemoveBook(isbnToRemove);
                     Console.ReadKey();
                     break;
+
 
                 case "3":
                     library.DisplayBooks();

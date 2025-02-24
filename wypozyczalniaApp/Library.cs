@@ -1,32 +1,29 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace wypozyczalniaApp
 {
     public class Library
     {
-        private List<Book> books = new List<Book>();
+        private JsonDatabase _database = new JsonDatabase("books.json");
 
         public void AddBook(string title, string author, string isbn, DateTime releaseDate, string? description, string genre)
         {
-            if (books.Any(b => b.ISBN == isbn))
+            if (_database.FindBookByISBN(isbn) != null)
             {
                 Console.WriteLine("Książka o tym ISBN już istnieje!");
                 return;
             }
 
-            books.Add(new Book(title, author, isbn, releaseDate, description, true, genre));
+            var book = new Book(title, author, isbn, releaseDate, description, true, genre);
+            _database.AddBook(book);
             Console.WriteLine("Książka dodana!");
         }
 
         public void RemoveBook(string isbn)
         {
-            var bookToRemove = books.FirstOrDefault(b => b.ISBN == isbn);
-            if (bookToRemove != null)
+            if (_database.RemoveBookByISBN(isbn))
             {
-                books.Remove(bookToRemove);
                 Console.WriteLine("Książka usunięta!");
             }
             else
@@ -37,6 +34,7 @@ namespace wypozyczalniaApp
 
         public void DisplayBooks()
         {
+            List<Book> books = _database.GetAllBooks();
             Console.WriteLine("\n=== Lista Książek ===");
             if (books.Count == 0)
             {
@@ -46,10 +44,9 @@ namespace wypozyczalniaApp
             {
                 foreach (var book in books)
                 {
-                    Console.WriteLine(book.ToString());
+                    Console.WriteLine(book);
                 }
             }
         }
-
     }
 }
