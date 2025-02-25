@@ -10,10 +10,6 @@ namespace wypozyczalniaApp.Models
         public string? LastName { get; set; }
         public long? Pesel { get; set; }
 
-        //public Person()
-        //{
-        //    Id = _PersonId++;
-        //}
         public Person(string firstName, string lastName, long pesel)
         {
             Id = _PersonId++;

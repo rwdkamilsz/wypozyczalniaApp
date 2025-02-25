@@ -20,8 +20,8 @@ public class Wypozyczalnia
             Console.WriteLine("=== BIBLIOTEKA ===");
             Console.WriteLine("1. Zarządzanie książkami");
             Console.WriteLine("2. Zarządzanie użytkownikami");
-            Console.WriteLine("2. Zarządzanie wypożyczeniami");
-            Console.WriteLine("3. Zakończ");
+            Console.WriteLine("3. Zarządzanie wypożyczeniami");
+            Console.WriteLine("4. Zakończ");
             Console.Write("Wybierz opcję: ");
 
             string? choice = Console.ReadLine();

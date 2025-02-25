@@ -16,6 +16,7 @@ namespace wypozyczalniaApp
         private List<Book> _books;
         private List<Reader> _readers;
         private List<Borrowing> _borrowings;
+
         public JsonDatabase()
         {
             _books = LoadFromFile<Book>("books.json");
@@ -56,6 +57,32 @@ namespace wypozyczalniaApp
             }
         }
 
+        public List<Book> GetAllBooks()
+        {
+            return _books;
+        }
+        public List<Reader> GetAllReaders()
+        {
+            return _readers;
+        }
+        public List<Borrowing> GetAllBorrowings()
+        {
+            return _borrowings;
+        }
+
+        public void SaveBooks()
+        {
+            SaveToFile(_books, "books.json");
+        }
+        public void SaveReaders()
+        {
+            SaveToFile(_readers, "readers.json");
+        }
+        public void SaveBorrowings()
+        {
+            SaveToFile(_readers, "borrowings.json");
+        }
+
         public void AddBook(Book book)
         {
             _books.Add(book);
@@ -72,25 +99,14 @@ namespace wypozyczalniaApp
             _borrowings.Add(borrowing);
             SaveBorrowings();
         }
-        public void SaveBooks()
-        {
-            SaveToFile(_books, "books.json");
-        }
-        public void SaveReaders()
-        {
-            SaveToFile(_readers, "readers.json");
-        }
-        public void SaveBorrowings()
-        {
-            SaveToFile(_readers, "borrowings.json");
-        }
+      
         public bool RemoveBookByISBN(string isbn)
         {
             Book? bookToRemove = FindBookByISBN(isbn);
             if (bookToRemove != null)
             {
                 _books.Remove(bookToRemove);
-                SaveToFile(_books, "books.json");
+                SaveBooks();
                 return true;
             }
             return false;
@@ -102,7 +118,7 @@ namespace wypozyczalniaApp
             if (readerToRemove != null)
             {
                 _readers.Remove(readerToRemove);
-                SaveToFile(_readers, "readers.json");
+                SaveReaders();
                 return true;
             }
             return false;
@@ -119,18 +135,7 @@ namespace wypozyczalniaApp
             return null;
         }
 
-        public List<Book> GetAllBooks()
-        {
-            return _books;
-        }
-        public List<Reader> GetAllReaders()
-        {
-            return _readers;
-        }
-        public List<Borrowing> GetAllBorrowings()
-        {
-            return _borrowings;
-        }
+        
         public Reader? FindReader(long? libraryID, long? pesel)
         {
             foreach (var reader in _readers)

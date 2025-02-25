@@ -140,7 +140,6 @@ namespace wypozyczalniaApp
                 }
             }
         }
-        // Borrowing operations
         public void BorrowBook(string isbn, long readerID, int loanDays = 14)
         {
             var book = _database.FindBookByISBN(isbn);
