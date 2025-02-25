@@ -22,7 +22,7 @@
         public override string ToString()
         {
             string status = ReturnDate.HasValue ? $"Zwrócono: {ReturnDate.Value:yyyy-MM-dd}" : $"Do zwrotu: {DueDate:yyyy-MM-dd}";
-            return $"ISBN: {ISBN}, ID Czytelnika: {ReaderID}, Wypożyczono: {BorrowDate:yyyy-MM-dd}, Zwrócona: { (Returned ? "TAK" : "NIE")} ";
+            return $"ISBN: {ISBN}, ID Czytelnika: {ReaderID}, Wypożyczono: {BorrowDate:yyyy-MM-dd}, Zwrócona: { (Returned ? "TAK" : "NIE")} {(ReturnDate != null ? ", "+ReturnDate : "")}";
             
         }
     }

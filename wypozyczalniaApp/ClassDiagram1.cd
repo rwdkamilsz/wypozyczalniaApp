@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="wypozyczalniaApp.Models.Book">
+    <Position X="15.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAoAAAEgAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Book.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.Models.Borrowing">
+    <Position X="17" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAQEACCAEAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Borrowing.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.Models.Item">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAEAEAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Models\Item.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.Models.Person">
+    <Position X="13" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAEAAAAAAEAAACAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Models\Person.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.Models.Reader">
+    <Position X="13" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAACAAEAAAAAAAAAAAAAEAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\Reader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.JsonDatabase">
+    <Position X="19" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAIQAECiASAQBgAACCAAAAAAAAACIAAAJAAAAAQAEAE=</HashCode>
+      <FileName>JsonDatabaseManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="wypozyczalniaApp.Library">
+    <Position X="17" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAACABAQAAAAACAAAAAABAAAAAQAABAUAAAAABA=</HashCode>
+      <FileName>Library.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wypozyczalnia">
+    <Position X="19" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQABAgAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

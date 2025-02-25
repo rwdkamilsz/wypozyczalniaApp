@@ -38,7 +38,7 @@ namespace wypozyczalniaApp
             Console.WriteLine("Czytelnik dodany!");
 
         }
-        public void UpdateBook(string isbn, string? newTitle, string? newAuthor, string? newReleaseDate, string? newDescription, string? newGenre)
+        public void UpdateBook(string isbn, string? newTitle, string? newAuthor, string? newReleaseDate, string? newDescription, string? newGenre, bool isAvailable =true)
         {
             var book = _database.FindBookByISBN(isbn);
             if (book == null)
@@ -78,7 +78,7 @@ namespace wypozyczalniaApp
             {
                 book.Genre = newGenre;
             }
-
+            book.IsAvailable = isAvailable;
             _database.SaveBooks();
 
             Console.WriteLine("Dane książki zostały zaktualizowane.");
@@ -140,7 +140,7 @@ namespace wypozyczalniaApp
                 }
             }
         }
-        public void BorrowBook(string isbn, long readerID, int loanDays = 14)
+        public void BorrowBook(string isbn, long readerID, DateTime? borrowedDate = null, int loanDays = 14)
         {
             var book = _database.FindBookByISBN(isbn);
             if (book == null)
@@ -162,7 +162,7 @@ namespace wypozyczalniaApp
                 return;
             }
 
-            var borrowDate = DateTime.Now;
+            var borrowDate = borrowedDate ?? DateTime.Now;
             var dueDate = borrowDate.AddDays(loanDays);
             var borrowing = new Borrowing(isbn, readerID, borrowDate, dueDate);
 
@@ -227,6 +227,6 @@ namespace wypozyczalniaApp
                 }
             }
             }
-        }
+    }
 
 }

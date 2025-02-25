@@ -23,6 +23,5 @@ namespace wypozyczalniaApp.Models
         {
             return $"Imię: {FirstName}, Nazwisko: {LastName}, PESEL: {Pesel}";
         }
-
     }
 }

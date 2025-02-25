@@ -13,6 +13,8 @@ public class Wypozyczalnia
 
         _library.AddBook("Władca Pierścieni", "J.R.R. Tolkien", "1", new DateTime(2012, 1, 1), "", "Fantastyka");
         _library.AddBook("Diune", "Frank Herbert", "2", new DateTime(2024, 1, 1), "", "Science Fiction");
+        _library.BorrowBook("1", 1, new DateTime(2025,2,20));
+        _library.UpdateBook("1", null, null, null, null, null, false);
 
         while (true)
         {
@@ -241,7 +243,7 @@ public class Wypozyczalnia
                         Console.Write("Podaj liczbę dni wypożyczenia (domyślnie 14): ");
                         if (int.TryParse(Console.ReadLine(), out int days) && days > 0)
                         {
-                            _library.BorrowBook(isbn, readerId, days);
+                            _library.BorrowBook(isbn, readerId,null, days);
                         }
                         else
                         {

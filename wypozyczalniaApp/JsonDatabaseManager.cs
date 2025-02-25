@@ -80,7 +80,7 @@ namespace wypozyczalniaApp
         }
         public void SaveBorrowings()
         {
-            SaveToFile(_readers, "borrowings.json");
+            SaveToFile(_borrowings, "borrowings.json");
         }
 
         public void AddBook(Book book)
